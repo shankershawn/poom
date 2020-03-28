@@ -6,14 +6,9 @@
     "@oracle/oraclejet": "~8.0.0",
     "@oracle/oraclejet-tooling": "~8.0.0"
   },
-  "devDependencies": {
-    "@oracle/oraclejet-tooling": "~8.0.0"
-  },
+  "devDependencies": {},
   "engines": {
     "node": ">=0.10.0"
   },
-  "private": true,
-  "scripts": {
-    "start": "ojet serve"
-  }
+  "private": true
 }
