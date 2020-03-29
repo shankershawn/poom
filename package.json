@@ -13,6 +13,6 @@
   },
   "private": true,
   "scripts": {
-    "start": "ojet serve"
+    "start": "ojet serve --server-port=$PORT"
   }
 }
