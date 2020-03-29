@@ -4,11 +4,15 @@
   "description": "An Oracle JavaScript Extension Toolkit(JET) web app",
   "dependencies": {
     "@oracle/oraclejet": "~8.0.0",
-    "@oracle/oraclejet-tooling": "~8.0.0"
+    "@oracle/oraclejet-tooling": "~8.0.0",
+    "@oracle/ojet-cli": "~8.0.0"
   },
   "devDependencies": {},
   "engines": {
     "node": ">=0.10.0"
   },
-  "private": true
+  "private": true,
+  "scripts": {
+    "start": "ojet serve"
+  }
 }
