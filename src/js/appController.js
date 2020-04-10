@@ -8,8 +8,8 @@
  * Your application specific code will go here
  */
 define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils', 'ojs/ojrouter', 'ojs/ojresponsiveutils', 'ojs/ojresponsiveknockoututils', 'ojs/ojarraydataprovider',
-        'ojs/ojoffcanvas', 'ojs/ojmodule-element', 'ojs/ojknockout'],
-  function(ko, moduleUtils, KnockoutTemplateUtils, Router, ResponsiveUtils, ResponsiveKnockoutUtils, ArrayDataProvider, OffcanvasUtils) {
+        'ojs/ojoffcanvas', 'ojs/ojanimation', 'ojs/ojmodule-element', 'ojs/ojknockout'],
+  function(ko, moduleUtils, KnockoutTemplateUtils, Router, ResponsiveUtils, ResponsiveKnockoutUtils, ArrayDataProvider, OffcanvasUtils, AnimationUtils) {
      function ControllerViewModel() {
       var self = this;
 
@@ -48,7 +48,8 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
        // Router setup
        self.router = Router.rootInstance;
        self.router.configure({
-         'dashboard': {label: 'Dashboard', isDefault: true},
+         'login': {label: 'Login', isDefault: true},
+         'dashboard': {label: 'Dashboard'},
          'timeline': {label: 'Timeline'},
          'documents': {label: 'Documents'},
          'about': {label: 'About'}
@@ -67,14 +68,16 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
 
       // Navigation setup
       var navData = [
+      {name: 'Login', id: 'login',
+       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-person-icon-24', display: "block"},
       {name: 'Dashboard', id: 'dashboard',
-       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-chart-icon-24'},
+       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-chart-icon-24', display: "block"},
       {name: 'Timeline', id: 'timeline',
-       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-fire-icon-24'},
+       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-fire-icon-24', display: "block"},
       {name: 'Documents', id: 'documents',
-       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-people-icon-24'},
+       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-people-icon-24', display: "block"},
       {name: 'About', id: 'about',
-       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-info-icon-24'}
+       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-info-icon-24', display: "block"}
       ];
       self.navDataProvider = new ArrayDataProvider(navData, {keyAttributes: 'id'});
 
