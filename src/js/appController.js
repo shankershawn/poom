@@ -48,11 +48,7 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
        // Router setup
        self.router = Router.rootInstance;
        self.router.configure({
-         'login': {label: 'Login', isDefault: true},
-         'dashboard': {label: 'Dashboard'},
-         'timeline': {label: 'Timeline'},
-         'documents': {label: 'Documents'},
-         'about': {label: 'About'}
+         'login': {label: 'Login', isDefault: true}
        });
       Router.defaults['urlAdapter'] = new Router.urlParamAdapter();
 
@@ -67,19 +63,21 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
       };
 
       // Navigation setup
-      var navData = [
+      self.navData = ko.observableArray([
       {name: 'Login', id: 'login',
        iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-person-icon-24', display: "block"},
       {name: 'Dashboard', id: 'dashboard',
-       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-chart-icon-24', display: "block"},
+       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-chart-icon-24', display: "none"},
       {name: 'Timeline', id: 'timeline',
-       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-fire-icon-24', display: "block"},
+       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-fire-icon-24', display: "none"},
       {name: 'Documents', id: 'documents',
-       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-people-icon-24', display: "block"},
+       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-people-icon-24', display: "none"},
       {name: 'About', id: 'about',
-       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-info-icon-24', display: "block"}
-      ];
-      self.navDataProvider = new ArrayDataProvider(navData, {keyAttributes: 'id'});
+       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-info-icon-24', display: "none"}
+      ]);
+      self.navDataProvider = ko.computed(function(){
+          return new ArrayDataProvider(self.navData, {keyAttributes: 'id'});
+      }, self); 
 
       // Drawer
       // Close offcanvas on medium and larger screens
@@ -134,6 +132,13 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
         new footerLink('Terms Of Use', 'termsOfUse', 'http://www.oracle.com/us/legal/terms/index.html'),
         new footerLink('Your Privacy Rights', 'yourPrivacyRights', 'http://www.oracle.com/us/legal/privacy/index.html')
       ]);
+      
+      self.userMenuAction = function(event){
+          console.log(event);
+          switch(event.detail.originalEvent.target.parentElement.id){
+              case "out": this.router.go('')
+          }
+      }
      }
 
      return new ControllerViewModel();

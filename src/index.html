@@ -102,7 +102,7 @@
                     <oj-menu-button id="userMenu" display="[[smScreen() ? 'icons' : 'all']]" chroming="half">
                   <span><oj-bind-text value="[[userLogin]]"></oj-bind-text></span>
                   <span slot="endIcon" :class="[[{'oj-icon demo-appheader-avatar': smScreen(), 'oj-component-icon oj-button-menu-dropdown-icon': !smScreen()}]]"></span>
-                  <oj-menu id="menu1" slot="menu" style="display:none">
+                  <oj-menu id="menu1" slot="menu" style="display:none" on-oj-action="[[userMenuAction]]">
                     <oj-option id="pref" value="pref">Preferences</oj-option>
                     <oj-option id="help" value="help">Help</oj-option>
                     <oj-option id="about" value="about">About</oj-option>

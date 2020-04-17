@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 
-define(['jquery', 'knockout', '../appController', 'ojs/ojcore', 'ojs/ojinputtext', 'ojs/ojbutton', 'ojs/ojformlayout', 'ojs/ojvalidationgroup'],
-function($, ko, app){
+define(['jquery', 'knockout', '../appController', 'utils/router.util', 'ojs/ojcore', 'ojs/ojinputtext', 'ojs/ojbutton', 'ojs/ojformlayout', 'ojs/ojvalidationgroup', 'ojs/ojdataprovider'],
+function($, ko, app, routerUtil){
     
     function loginProcessor(){
         var self = this;
@@ -28,7 +28,25 @@ function($, ko, app){
             
             console.log(self.username());
             console.log(self.password());
-            app.router.go('dashboard');
+            routerUtil.configureRoute({
+                'dashboard': {label: 'Dashboard', isDefault: true},
+                'timeline': {label: 'Timeline'},
+                'documents': {label: 'Documents'},
+                'about': {label: 'About'}
+            });
+            
+            routerUtil.setNavData([{name: 'Login', id: 'login',
+                iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-person-icon-24', display: "none"},
+               {name: 'Dashboard', id: 'dashboard',
+                iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-chart-icon-24', display: "block"},
+               {name: 'Timeline', id: 'timeline',
+                iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-fire-icon-24', display: "block"},
+               {name: 'Documents', id: 'documents',
+                iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-people-icon-24', display: "block"},
+               {name: 'About', id: 'about',
+                iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-info-icon-24', display: "block"}
+            ]);
+            routerUtil.navigate('timeline');
         }.bind(self);
         
         self.register = function(){
