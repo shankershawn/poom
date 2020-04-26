@@ -4,13 +4,13 @@
         <div class="oj-flex-item" style="text-align: center; max-width: 100%; min-height: 170px; border: 1px solid gray; padding: 20px 5px 0px 5px;">
             <oj-validation-group id="registrationValidationGroup">
                 <oj-form-layout max-columns="2" id="registrationform" label-edge="start">
-                    <oj-input-text label-hint="{{labels().firstname}}" validators="[[textValidators]]" id="firstname" placeholder="{{placeholders().firstname}}" value="{{firstname}}" required></oj-input-text>
-                    <oj-input-text label-hint="{{labels().lastname}}" validators="[[textValidators]]" id="lastname" placeholder="{{placeholders().lastname}}" value="{{lastname}}" required></oj-input-text>
-                    <oj-input-text label-hint="{{labels().email}}" validators="[[emailValidators]]" id="email" placeholder="{{placeholders().email}}" value="{{email}}" required></oj-input-text>
-                    <oj-input-text label-hint="{{labels().phone}}" validators="[[phoneValidators]]" id="phone" placeholder="{{placeholders().phone}}" value="{{phone}}" required></oj-input-text>
-                    <oj-input-text label-hint="{{labels().username}}" validators="[[usernameValidators]]" id="username" placeholder="{{placeholders().username}}" value="{{username}}" required></oj-input-text>
-                    <oj-input-password label-hint="{{labels().password}}" validators="[[passwordValidators]]" id="password" placeholder="{{placeholders().password}}" value="{{password}}" required></oj-input-password>
-                    <oj-input-password label-hint="{{labels().confirmpassword}}" id="confirmpassword" placeholder="{{placeholders().confirmpassword}}" value="{{confirmpassword}}" required></oj-input-password>
+                    <oj-input-text label-hint="{{labels.firstname}}" validators="[[textValidators]]" id="firstname" placeholder="{{placeholders.firstname}}" value="{{firstname}}" required></oj-input-text>
+                    <oj-input-text label-hint="{{labels.lastname}}" validators="[[textValidators]]" id="lastname" placeholder="{{placeholders.lastname}}" value="{{lastname}}" required></oj-input-text>
+                    <oj-input-text label-hint="{{labels.email}}" validators="[[emailValidators]]" id="email" placeholder="{{placeholders.email}}" value="{{email}}" required></oj-input-text>
+                    <oj-input-text label-hint="{{labels.phone}}" validators="[[phoneValidators]]" help.instruction="{{helpInstructions.phone}}" id="phone" placeholder="{{placeholders.phone}}" value="{{phone}}" required></oj-input-text>
+                    <oj-input-text label-hint="{{labels.username}}" validators="[[usernameValidators]]" help.instruction="{{helpInstructions.username}}" id="username" placeholder="{{placeholders.username}}" value="{{username}}" required></oj-input-text>
+                    <oj-input-password label-hint="{{labels.password}}" validators="[[passwordValidators]]" help.instruction="{{helpInstructions.password}}" id="password" placeholder="{{placeholders.password}}" value="{{password}}" required></oj-input-password>
+                    <oj-input-password label-hint="{{labels.confirmpassword}}" id="confirmpassword" placeholder="{{placeholders.confirmpassword}}" value="{{confirmpassword}}" required></oj-input-password>
                 </oj-form-layout>
             </oj-validation-group>
             <div style="float: right; min-height: 30px; bottom: 2px">

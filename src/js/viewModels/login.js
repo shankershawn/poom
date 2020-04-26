@@ -6,15 +6,15 @@ function($, ko, routerUtil){
         self.username = ko.observable("");
         self.password = ko.observable("");
         
-        self.placeholders = ko.observable({
+        self.placeholders = {
             username: 'Please enter your username',
             password: 'Please enter your password'
-        });
+        };
         
-        self.labels = ko.observable({
+        self.labels = {
             username: 'Username',
             password: 'Password'
-        })
+        };
         
         self.validateCredentials = function(event){
             var loginValidationGroup = document.getElementById("loginValidationGroup");

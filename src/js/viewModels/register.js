@@ -10,7 +10,7 @@ function($, ko, routerUtil, AsyncRegExpValidator){
         self.password = ko.observable("");
         self.confirmpassword = ko.observable("");
 
-        self.labels = ko.observable({
+        self.labels = {
             firstname: 'First Name',
             lastname: 'Last Name',
             email: 'Email Address',
@@ -18,9 +18,9 @@ function($, ko, routerUtil, AsyncRegExpValidator){
             username: 'Username',
             password: 'Password',
             confirmpassword: 'Confirm Password'
-        });
+        };
         
-        self.placeholders = ko.observable({
+        self.placeholders = {
             firstname: 'Please enter your first name',
             lastname: 'Please enter your last name',
             email: 'Please enter your email address',
@@ -28,7 +28,7 @@ function($, ko, routerUtil, AsyncRegExpValidator){
             username: 'Please enter your desired username',
             password: 'Please enter your desired password',
             confirmpassword: 'Please re-enter your password'
-        });
+        };
         
         self.textValidators = [
             new AsyncRegExpValidator({
@@ -40,16 +40,22 @@ function($, ko, routerUtil, AsyncRegExpValidator){
         self.phoneValidators = [
             new AsyncRegExpValidator({
                 pattern: '\\d{10}',
-                messageDetail: 'Please enter 10 digits only.'
+                messageDetail: 'Your phone number must contain 10 digits only.'
             })
         ];
         
         self.usernameValidators = [
             new AsyncRegExpValidator({
                 pattern: '^(?=.*[a-zA-Z]+)(?=.*.).*$',
-                messageDetail: 'Please enter at least one alphabet.'
+                messageDetail: 'Your username must contain at least one alphabet.'
             })
         ];
+        
+        self.helpInstructions = {
+            password: 'Please enter a combination of uppercase, lowercase, digits and special characters.',
+            phone: 'Please enter 10 digits only.',
+            username: 'Please enter at least one alphabet.'
+        };
         
         self.passwordValidators = [
             new AsyncRegExpValidator({
@@ -71,7 +77,12 @@ function($, ko, routerUtil, AsyncRegExpValidator){
         ];
         
         self.register = function(){
-            
+            var registrationValidationGroup = document.getElementById("registrationValidationGroup");
+            if(registrationValidationGroup.valid != "valid"){
+                registrationValidationGroup.showMessages();
+                registrationValidationGroup.focusOn("@firstInvalidShown");
+                return false;
+            }
         }
         
         self.connected = function(){
