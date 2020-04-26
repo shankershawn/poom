@@ -1,12 +1,5 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-define(["../appController"],
-function(app){
+define(["../appController", "ojs/ojrouter"],
+function(app, Router){
     function processRoute(){
         var self = this;
         
@@ -15,11 +8,22 @@ function(app){
         }
         
         self.configureRoute = function(routeConfig){
+            app.router = Router.rootInstance;
             app.router.configure(routeConfig);
         }
         
         self.setNavData = function(navData){
+            hideNavigationItems();
             app.navData(navData);
+        }
+        
+        self.showNavigationItems = function(){
+            document.getElementById('ui-id-2').style.visibility = "visible";
+        }
+        
+        function hideNavigationItems(){
+            Array.from(document.getElementById('ui-id-2').children).forEach(li => li.style.visibility = "hidden");
+            document.getElementById('ui-id-2').style.visibility = "hidden";
         }
     }
     return new processRoute();

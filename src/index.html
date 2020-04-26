@@ -47,7 +47,7 @@
   <body class="oj-web-applayout-body">
     <!-- Template for rendering navigation items shared between nav bar and nav list -->
     <script type="text/html" id="navTemplate">
-      <li :style.display="[[$data['display']]]"><a href="#">
+      <li><a href="#">
         <span :class="[[$data['iconClass']]]"></span>
         <oj-bind-text value="[[$data['name']]]"></oj-bind-text>
       </a></li>
@@ -103,9 +103,9 @@
                   <span><oj-bind-text value="[[userLogin]]"></oj-bind-text></span>
                   <span slot="endIcon" :class="[[{'oj-icon demo-appheader-avatar': smScreen(), 'oj-component-icon oj-button-menu-dropdown-icon': !smScreen()}]]"></span>
                   <oj-menu id="menu1" slot="menu" style="display:none" on-oj-action="[[userMenuAction]]">
-                    <oj-option id="pref" value="pref">Preferences</oj-option>
+                    <!--<oj-option id="pref" value="pref">Preferences</oj-option>
                     <oj-option id="help" value="help">Help</oj-option>
-                    <oj-option id="about" value="about">About</oj-option>
+                    <oj-option id="about" value="about">About</oj-option>-->
                     <oj-option id="out" value="out">Sign Out</oj-option>
                   </oj-menu>
                 </oj-menu-button>

@@ -1,15 +1,6 @@
-/**
- * @license
- * Copyright (c) 2014, 2019, Oracle and/or its affiliates.
- * The Universal Permissive License (UPL), Version 1.0
- * @ignore
- */
-/*
- * Your application specific code will go here
- */
 define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils', 'ojs/ojrouter', 'ojs/ojresponsiveutils', 'ojs/ojresponsiveknockoututils', 'ojs/ojarraydataprovider',
-        'ojs/ojoffcanvas', 'ojs/ojanimation', 'ojs/ojmodule-element', 'ojs/ojknockout'],
-  function(ko, moduleUtils, KnockoutTemplateUtils, Router, ResponsiveUtils, ResponsiveKnockoutUtils, ArrayDataProvider, OffcanvasUtils, AnimationUtils) {
+        'ojs/ojoffcanvas', 'ojs/ojmodule-element', 'ojs/ojknockout'],
+  function(ko, moduleUtils, KnockoutTemplateUtils, Router, ResponsiveUtils, ResponsiveKnockoutUtils, ArrayDataProvider, OffcanvasUtils) {
      function ControllerViewModel() {
       var self = this;
 
@@ -45,11 +36,9 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
       var mdQuery = ResponsiveUtils.getFrameworkQuery(ResponsiveUtils.FRAMEWORK_QUERY_KEY.MD_UP);
       self.mdScreen = ResponsiveKnockoutUtils.createMediaQueryObservable(mdQuery);
 
-       // Router setup
-       self.router = Router.rootInstance;
-       self.router.configure({
-         'login': {label: 'Login', isDefault: true}
-       });
+        // Router setup
+      self.router = Router.rootInstance;
+      self.router.configure({'login': {label: 'Login', isDefault: true}});
       Router.defaults['urlAdapter'] = new Router.urlParamAdapter();
 
       self.loadModule = function () {
@@ -65,17 +54,9 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
       // Navigation setup
       self.navData = ko.observableArray([
       {name: 'Login', id: 'login',
-       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-person-icon-24', display: "block"},
-      {name: 'Dashboard', id: 'dashboard',
-       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-chart-icon-24', display: "none"},
-      {name: 'Timeline', id: 'timeline',
-       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-fire-icon-24', display: "none"},
-      {name: 'Documents', id: 'documents',
-       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-people-icon-24', display: "none"},
-      {name: 'About', id: 'about',
-       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-info-icon-24', display: "none"}
+       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-person-icon-24'}
       ]);
-      self.navDataProvider = ko.computed(function(){
+      self.navDataProvider = ko.pureComputed(function(){
           return new ArrayDataProvider(self.navData, {keyAttributes: 'id'});
       }, self); 
 
@@ -134,9 +115,13 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
       ]);
       
       self.userMenuAction = function(event){
-          console.log(event);
           switch(event.detail.originalEvent.target.parentElement.id){
-              case "out": this.router.go('')
+              case "out": 
+                  var routerUtil = require('./utils/router.util');
+                  routerUtil.configureRoute({'login': {label: 'Login', isDefault: true}});
+                  routerUtil.setNavData([{name: 'Login', id: 'login', iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-person-icon-24'}]);
+                  routerUtil.navigate('login');
+                  break;
           }
       }
      }
