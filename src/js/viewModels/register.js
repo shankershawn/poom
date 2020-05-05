@@ -2,13 +2,22 @@ define(['jquery', 'knockout', 'utils/router.util', 'ojs/ojasyncvalidator-regexp'
 function($, ko, routerUtil, AsyncRegExpValidator){
     function registrationProcessor(){
         var self = this;
-        self.firstname = ko.observable("");
+        self.request = {
+            firstname: ko.observable(""),
+            lastname: ko.observable(""),
+            email: ko.observable(""),
+            phone: ko.observable(""),
+            username: ko.observable(""),
+            password: ko.observable(""),
+            confirmpassword: ko.observable("")
+        };
+        /*self.firstname = ko.observable("");
         self.lastname = ko.observable("");
         self.email = ko.observable("");
         self.phone = ko.observable("");
         self.username = ko.observable("");
         self.password = ko.observable("");
-        self.confirmpassword = ko.observable("");
+        self.confirmpassword = ko.observable("");*/
 
         self.labels = {
             firstname: 'First Name',
@@ -28,6 +37,12 @@ function($, ko, routerUtil, AsyncRegExpValidator){
             username: 'Please enter your desired username',
             password: 'Please enter your desired password',
             confirmpassword: 'Please re-enter your password'
+        };
+        
+        self.helpInstructions = {
+            password: 'Please enter a combination of uppercase, lowercase, digits and special characters.',
+            phone: 'Please enter 10 digits only.',
+            username: 'Please enter at least one alphabet.'
         };
         
         self.textValidators = [
@@ -51,17 +66,11 @@ function($, ko, routerUtil, AsyncRegExpValidator){
             })
         ];
         
-        self.helpInstructions = {
-            password: 'Please enter a combination of uppercase, lowercase, digits and special characters.',
-            phone: 'Please enter 10 digits only.',
-            username: 'Please enter at least one alphabet.'
-        };
-        
         self.passwordValidators = [
             new AsyncRegExpValidator({
                 pattern: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z\\d]).*$',
                 messageSummary: 'Password is not strong enough',
-                messageDetail: 'Your password must contain a combination of uppercase, lowercase, digits and special characters'
+                messageDetail: 'Your password must contain a combination of uppercase, lowercase, digits and special characters.'
             }),
             new AsyncRegExpValidator({
                 pattern: '^(?=.*\\D$)(?=.*^\\D).*$',
@@ -76,39 +85,44 @@ function($, ko, routerUtil, AsyncRegExpValidator){
             })
         ];
         
-        self.register = function(){
+        self.register = () => {
             var registrationValidationGroup = document.getElementById("registrationValidationGroup");
             if(registrationValidationGroup.valid != "valid"){
                 registrationValidationGroup.showMessages();
                 registrationValidationGroup.focusOn("@firstInvalidShown");
                 return false;
             }
+
+            console.log(self.request());
+
+            $.post('http://localhost:5001/register', self.request, (data, textStatus) => {
+                console.log(data);
+            });
         }
         
-        self.connected = function(){
+        self.isUsernameExists = () => {
+            
+        }
+        
+        self.connected = () => {
             routerUtil.showNavigationItems();
         }
         
-        self.disconnected = function(){
-            self.username("");
-            self.password("");
-            self.firstname("");
-            self.lastname("");
-            self.email("");
-            self.phone("");
-            self.username("");
-            self.password("");
-            self.confirmpassword("");
-
+        self.disconnected = () => {
+            self.request.firstname("");
+            self.request.lastname("");
+            self.request.email("");
+            self.request.phone("");
+            self.request.username("");
+            self.request.password("");
+            self.request.confirmpassword("");
         }
         
-        self.navLogin = function(){
+        self.navLogin = () => {
             routerUtil.configureRoute({'login': {label: 'Login', isDefault: true}});
             routerUtil.setNavData([{name: 'Login', id: 'login', iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-person-icon-24'}]);
             routerUtil.navigate('login');
         }
-        
-        
     }
     
     return new registrationProcessor();

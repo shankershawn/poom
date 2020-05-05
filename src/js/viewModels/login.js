@@ -16,7 +16,7 @@ function($, ko, routerUtil){
             password: 'Password'
         };
         
-        self.validateCredentials = function(event){
+        self.validateCredentials = (event) => {
             var loginValidationGroup = document.getElementById("loginValidationGroup");
             if(loginValidationGroup.valid != "valid"){
                 loginValidationGroup.showMessages();
@@ -43,21 +43,21 @@ function($, ko, routerUtil){
             routerUtil.navigate('dashboard');
         };
         
-        self.navRegister = function(){
+        self.navRegister = () => {
             routerUtil.configureRoute({'register': {label: 'Register', isDefault: true}});
             routerUtil.setNavData([{name: 'Register', id: 'register', iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-people-icon-24'}]);
             routerUtil.navigate('register');
         };
         
-        self.forgotPassword = function(){
+        self.forgotPassword = () => {
             
         };
         
-        self.connected = function(){
+        self.connected = () => {
             routerUtil.showNavigationItems();
         }
         
-        self.disconnected = function(){
+        self.disconnected = () => {
             self.username("");
             self.password("");
         }
