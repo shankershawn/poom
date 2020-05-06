@@ -12,7 +12,7 @@ module.exports = function (configObj) {
     console.log("Running after_serve hook.");
     fs.writeFile('./web/config/configuration.json', configObj.userOptions, (err) => {
       if(err) return console.log(err);
-      console.log("Service URL configured");
+      console.log("Service URL configured with " + configObj.userOptions);
     });
   	resolve();
   });
