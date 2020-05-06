@@ -13,6 +13,6 @@
   },
   "private": true,
   "scripts": {
-    "start": "ojet serve --server-port=$PORT --livereload=false --user-options=$TEST_CONFIG"
+    "start": "ojet serve --server-port=$PORT --livereload=false --user-options=\"{\\\"serviceUrl\\\": \\\"$SERVICE_URL\\\"}\""
   }
 }

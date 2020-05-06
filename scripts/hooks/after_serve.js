@@ -5,10 +5,15 @@
 
 'use strict';
 
+var fs = require('fs');
+
 module.exports = function (configObj) {
   return new Promise((resolve, reject) => {
     console.log("Running after_serve hook.");
-    console.log(configObj.userOptions);
+    fs.writeFile('./web/js/config/configuration.json', configObj.userOptions, (err) => {
+      if(err) return console.log(err);
+      console.log("Service URL configured");
+    });
   	resolve();
   });
 };
