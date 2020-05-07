@@ -1,6 +1,7 @@
-define(['jquery', 'knockout', 'utils/router.util', 'ojs/ojasyncvalidator-regexp', 'ojs/ojcore', 'ojs/ojinputtext', 'ojs/ojbutton', 'ojs/ojformlayout', 'ojs/ojvalidationgroup', 'ojs/ojdataprovider'],
-function($, ko, routerUtil, AsyncRegExpValidator){
+define(['jquery', 'knockout', 'utils/router.util', 'text!config/configuration.json', 'ojs/ojasyncvalidator-regexp', 'ojs/ojcore', 'ojs/ojinputtext', 'ojs/ojbutton', 'ojs/ojformlayout', 'ojs/ojvalidationgroup', 'ojs/ojdataprovider'],
+function($, ko, routerUtil, config, AsyncRegExpValidator){
     function registrationProcessor(){
+        console.log(config);
         var self = this;
         self.request = {
             firstname: ko.observable(""),
@@ -93,9 +94,9 @@ function($, ko, routerUtil, AsyncRegExpValidator){
                 return false;
             }
 
-            console.log(self.request());
+            console.log(self.request);
 
-            $.post('http://localhost:5001/register', self.request, (data, textStatus) => {
+            $.post(JSON.parse(config).serviceUrl + '/register', self.request, (data, textStatus) => {
                 console.log(data);
             });
         }
