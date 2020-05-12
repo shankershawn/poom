@@ -1,5 +1,5 @@
-define(['jquery', 'knockout', 'utils/router.util', 'text!config/configuration.json', 'ojs/ojasyncvalidator-regexp', 'ojs/ojcore', 'ojs/ojinputtext', 'ojs/ojbutton', 'ojs/ojformlayout', 'ojs/ojvalidationgroup', 'ojs/ojdataprovider'],
-function($, ko, routerUtil, config, AsyncRegExpValidator){
+define(['jquery', 'knockout', 'utils/router.util', 'text!config/configuration.json', 'ojs/ojasyncvalidator-regexp', 'accUtils', 'ojs/ojcore', 'ojs/ojinputtext', 'ojs/ojbutton', 'ojs/ojformlayout', 'ojs/ojvalidationgroup', 'ojs/ojdataprovider'],
+function($, ko, routerUtil, config, AsyncRegExpValidator, accUtils){
     function registrationProcessor(){
         console.log(config);
         var self = this;
@@ -12,13 +12,6 @@ function($, ko, routerUtil, config, AsyncRegExpValidator){
             password: ko.observable(""),
             confirmpassword: ko.observable("")
         };
-        /*self.firstname = ko.observable("");
-        self.lastname = ko.observable("");
-        self.email = ko.observable("");
-        self.phone = ko.observable("");
-        self.username = ko.observable("");
-        self.password = ko.observable("");
-        self.confirmpassword = ko.observable("");*/
 
         self.labels = {
             firstname: 'First Name',
@@ -96,8 +89,14 @@ function($, ko, routerUtil, config, AsyncRegExpValidator){
 
             console.log(self.request);
 
-            $.post(JSON.parse(config).serviceUrl + '/register', self.request, (data, textStatus) => {
+            $.post(JSON.parse(config).serviceUrl + '/register', self.request, (data) => {
                 console.log(data);
+                return data;
+            }).done((data) => {
+                resetFields();
+                accUtils.announce(data[0].messageDetail, 'assertive');
+            }).fail(() => {
+                /**Invoke failure user message */
             });
         }
         
@@ -110,6 +109,10 @@ function($, ko, routerUtil, config, AsyncRegExpValidator){
         }
         
         self.disconnected = () => {
+            resetFields();
+        }
+
+        var resetFields = () => {
             self.request.firstname("");
             self.request.lastname("");
             self.request.email("");

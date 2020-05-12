@@ -14,3 +14,17 @@
   height: 1px;
   overflow: hidden;
 }
+
+#announce {
+    background-color: magenta;
+    position: fixed;
+    z-index: 999;
+    width: 100%;
+    top: 0px;
+    max-height: 40px;
+    height: 40px;
+    text-align: center;
+    overflow: hidden;
+    visibility: hidden;
+    color: white;
+}
