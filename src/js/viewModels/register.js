@@ -71,6 +71,26 @@ function($, ko, routerUtil, config, AsyncRegExpValidator, accUtils){
                 messageDetail: 'Your password cannot begin or end with digits.'
             })
         ];
+
+        self.confirmPasswordValidators = [{
+            validate: function(value){
+                if(document.getElementById('password').rawValue != value){
+                    throw new Error("The passwords must match!");
+                }
+            }.bind(self)
+        }];
+    
+        self.request.password.subscribe((newValue) => {
+            var confirmPasswordElement = document.getElementById('confirmpassword');
+            if(confirmPasswordTouched && confirmPasswordElement){
+                confirmPasswordElement.validate();
+            }
+        });
+        
+        var confirmPasswordTouched = false;
+        self.request.confirmpassword.subscribe(() => {
+            confirmPasswordTouched = true;
+        });
         
         self.emailValidators = [
             new AsyncRegExpValidator({

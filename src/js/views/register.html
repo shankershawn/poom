@@ -10,7 +10,7 @@
                     <oj-input-text label-hint="{{labels.phone}}" validators="[[phoneValidators]]" help.instruction="{{helpInstructions.phone}}" id="phone" placeholder="{{placeholders.phone}}" value="{{request.phone}}" required></oj-input-text>
                     <oj-input-text label-hint="{{labels.username}}" validators="[[usernameValidators]]" help.instruction="{{helpInstructions.username}}" id="username" placeholder="{{placeholders.username}}" value="{{request.username}}" required></oj-input-text>
                     <oj-input-password label-hint="{{labels.password}}" validators="[[passwordValidators]]" help.instruction="{{helpInstructions.password}}" id="password" placeholder="{{placeholders.password}}" value="{{request.password}}" required></oj-input-password>
-                    <oj-input-password label-hint="{{labels.confirmpassword}}" id="confirmpassword" placeholder="{{placeholders.confirmpassword}}" value="{{request.confirmpassword}}" required></oj-input-password>
+                    <oj-input-password label-hint="{{labels.confirmpassword}}" validators="[[confirmPasswordValidators]]" id="confirmpassword" placeholder="{{placeholders.confirmpassword}}" value="{{request.confirmpassword}}" required></oj-input-password>
                 </oj-form-layout>
             </oj-validation-group>
             <div style="float: right; min-height: 30px; bottom: 2px">
