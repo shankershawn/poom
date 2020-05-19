@@ -290,6 +290,21 @@
         "path": "libs/require-css/css.min.js",
         "cdnPath": "require-css/css.min"
       }
+    },
+    
+    "cryptojs": {
+      "cdn": "3rdparty",
+      "cwd": "node_modules/crypto-js",
+      "debug": {
+        "src":  ["*"],
+        "path": "libs/crypto-js/",
+        "cdnPath": "crypto-js/"
+      },
+      "release": {
+        "src":  ["*"],
+        "path": "libs/crypto-js/",
+        "cdnPath": "crypto-js/"
+      }
     }
 
   }

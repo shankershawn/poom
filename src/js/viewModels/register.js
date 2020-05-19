@@ -1,8 +1,9 @@
-define(['jquery', 'knockout', 'utils/router.util', 'text!config/configuration.json', 'ojs/ojasyncvalidator-regexp', 'accUtils', 'ojs/ojcore', 'ojs/ojinputtext', 'ojs/ojbutton', 'ojs/ojformlayout', 'ojs/ojvalidationgroup', 'ojs/ojdataprovider'],
-function($, ko, routerUtil, config, AsyncRegExpValidator, accUtils){
+define(['jquery', 'knockout', 'utils/router.util', 'text!config/configuration.json', 'ojs/ojasyncvalidator-regexp', 'accUtils', 'cryptojs/crypto-js', 'ojs/ojcore', 'ojs/ojinputtext', 'ojs/ojbutton', 'ojs/ojformlayout', 'ojs/ojvalidationgroup', 'ojs/ojdataprovider'],
+function($, ko, routerUtil, config, AsyncRegExpValidator, accUtils, cryptojs){
     function registrationProcessor(){
         console.log(config);
         var self = this;
+        console.log(cryptojs.SHA512("Sun1!america").toString(cryptojs.enc.Base64));
         self.request = {
             firstname: ko.observable(""),
             lastname: ko.observable(""),
@@ -106,17 +107,24 @@ function($, ko, routerUtil, config, AsyncRegExpValidator, accUtils){
                 registrationValidationGroup.focusOn("@firstInvalidShown");
                 return false;
             }
-
-            console.log(self.request);
-
-            $.post(JSON.parse(config).serviceUrl + '/register', self.request, (data) => {
+            var registrationRequest = {
+                firstname: self.request.firstname(),
+                lastname: self.request.lastname(),
+                email: self.request.email(),
+                phone: self.request.phone(),
+                username: self.request.username(),
+                password: cryptojs.SHA512(self.request.password()).toString(cryptojs.enc.Base64)
+            };
+            console.log(registrationRequest);
+            
+            $.post(JSON.parse(config).serviceUrl + '/register', registrationRequest, (data) => {
                 console.log(data);
                 return data;
             }).done((data) => {
-                resetFields();
                 accUtils.announce(data[0].messageDetail, 'assertive');
+                self.navLogin();
             }).fail(() => {
-                /**Invoke failure user message */
+                accUtils.announce("Something went wrong. Please try again later", 'error');
             });
         }
         

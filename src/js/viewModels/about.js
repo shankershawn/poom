@@ -24,7 +24,7 @@ define(['accUtils'],
        * after being disconnected.
        */
       self.connected = function() {
-        accUtils.announce('About page loaded.', 'assertive');
+        accUtils.announce('About page loaded.', 'error');
         document.title = "About";
         // Implement further logic if needed
       };
