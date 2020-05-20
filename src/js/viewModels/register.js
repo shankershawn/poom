@@ -51,14 +51,42 @@ function($, ko, routerUtil, config, AsyncRegExpValidator, accUtils, cryptojs){
             new AsyncRegExpValidator({
                 pattern: '\\d{10}',
                 messageDetail: 'Your phone number must contain 10 digits only.'
-            })
+            }),
+            {
+                validate: async function(value){
+                    if(!value){
+                        return;
+                    }
+                    var data;
+                    await $.get(JSON.parse(config).serviceUrl + '/validate/phone/' + encodeURIComponent(value), (data1) => {
+                        data = data1;
+                    });
+                    if(data && !data.isValid){
+                        throw new Error(data.messageDetail);
+                    }
+                }.bind(self)
+            }
         ];
         
         self.usernameValidators = [
             new AsyncRegExpValidator({
                 pattern: '^(?=.*[a-zA-Z]+)(?=.*.).*$',
                 messageDetail: 'Your username must contain at least one alphabet.'
-            })
+            }),
+            {
+                validate: async function(value){
+                    if(!value){
+                        return;
+                    }
+                    var data;
+                    await $.get(JSON.parse(config).serviceUrl + '/validate/username/' + encodeURIComponent(value), (data1) => {
+                        data = data1;
+                    });
+                    if(data && !data.isValid){
+                        throw new Error(data.messageDetail);
+                    }
+                }.bind(self)
+            }
         ];
         
         self.passwordValidators = [
@@ -97,7 +125,21 @@ function($, ko, routerUtil, config, AsyncRegExpValidator, accUtils, cryptojs){
             new AsyncRegExpValidator({
                 pattern: '([^@]+)([@])([a-zA-Z\d]+)([.])([a-zA-Z\d]+)',
                 messageDetail: 'Please enter a valid email address.'
-            })
+            }),
+            {
+                validate: async function(value){
+                    if(!value){
+                        return;
+                    }
+                    var data;
+                    await $.get(JSON.parse(config).serviceUrl + '/validate/email/' + encodeURIComponent(value), (data1) => {
+                        data = data1;
+                    });
+                    if(data && !data.isValid){
+                        throw new Error(data.messageDetail);
+                    }
+                }.bind(self)
+            }
         ];
         
         self.register = () => {
@@ -118,7 +160,6 @@ function($, ko, routerUtil, config, AsyncRegExpValidator, accUtils, cryptojs){
             console.log(registrationRequest);
             
             $.post(JSON.parse(config).serviceUrl + '/register', registrationRequest, (data) => {
-                console.log(data);
                 return data;
             }).done((data) => {
                 accUtils.announce(data[0].messageDetail, 'assertive');
