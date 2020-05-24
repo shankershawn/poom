@@ -24,7 +24,6 @@ define(['accUtils'],
        * after being disconnected.
        */
       self.connected = function() {
-        accUtils.announce('Timeline page loaded.', 'assertive');
         document.title = "Timeline";
         // Implement further logic if needed
       };

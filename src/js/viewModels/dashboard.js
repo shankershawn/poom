@@ -16,7 +16,6 @@ define(['accUtils', '../utils/router.util'],
        */
       self.connected = function() {
         routerUtil.showNavigationItems();
-        accUtils.announce('Welcome', 'assertive');
         document.title = "Dashboard";
         // Implement further logic if needed
       };
