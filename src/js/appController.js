@@ -36,14 +36,14 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
       var mdQuery = ResponsiveUtils.getFrameworkQuery(ResponsiveUtils.FRAMEWORK_QUERY_KEY.MD_UP);
       self.mdScreen = ResponsiveKnockoutUtils.createMediaQueryObservable(mdQuery);
 
-        // Router setup
+      // Router setup
       self.router = Router.rootInstance;
-      self.router.configure({'login': {label: 'Login', isDefault: true}});
       Router.defaults['urlAdapter'] = new Router.urlParamAdapter();
-
+      self.router.configure({'login': {label: 'Login', isDefault: true}});
       self.loadModule = function () {
         self.moduleConfig = ko.pureComputed(function () {
-          var name = self.router.moduleConfig.name();
+          console.log(self.router.stateId());
+          var name = !self.router.moduleConfig.name() ? 'login' : self.router.moduleConfig.name();
           var viewPath = 'views/' + name + '.html';
           var modelPath = 'viewModels/' + name;
           return moduleUtils.createConfig({ viewPath: viewPath,
@@ -51,10 +51,13 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
         });
       };
 
+      require(['./utils/router.util', './viewModels/login'], (routerUtil, login) => {
+        login.setTopMenu();
+      });
+
       // Navigation setup
       self.navData = ko.observableArray([
-      {name: 'Login', id: 'login',
-       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-person-icon-24'}
+        {name: 'Login', id: 'login', iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-person-icon-24'}
       ]);
       self.navDataProvider = ko.pureComputed(function(){
           return new ArrayDataProvider(self.navData, {keyAttributes: 'id'});
@@ -117,6 +120,7 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
       self.userMenuAction = function(event){
           switch(event.detail.originalEvent.target.parentElement.id){
               case "out": 
+                  window.localStorage.removeItem('fvgf');
                   var routerUtil = require('./utils/router.util');
                   routerUtil.configureRoute({'login': {label: 'Login', isDefault: true}});
                   routerUtil.setNavData([{name: 'Login', id: 'login', iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-person-icon-24'}]);

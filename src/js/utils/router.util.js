@@ -20,6 +20,12 @@ function(app, Router){
         self.showNavigationItems = function(){
             document.getElementById('ui-id-2').style.visibility = "visible";
         }
+
+        self.navLogin = () => {
+            self.configureRoute({'login': {label: 'Login', isDefault: true}});
+            self.setNavData([{name: 'Login', id: 'login', iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-person-icon-24'}]);
+            self.navigate('login');
+        }
         
         function hideNavigationItems(){
             Array.from(document.getElementById('ui-id-2').children).forEach(li => li.style.visibility = "hidden");

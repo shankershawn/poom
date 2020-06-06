@@ -15,6 +15,24 @@ function($, ko, routerUtil, cryptojs, config, accUtils){
             username: 'Username',
             password: 'Password'
         };
+
+        self.setTopMenu = () => {
+            $.ajax({
+                url: JSON.parse(config).serviceUrl + '/topmenu',
+                method: "GET",
+                headers: {
+                    "authorization": "Bearer " + window.localStorage.getItem("fvgf")
+                },
+                success: (data1) => {
+                    self.navLanding(data1.pageDataArray);
+                },
+                error: (err) => {
+                    //console.error(err);
+                    //accUtils.announce("Something went wrong. Please try again later", 'error');
+                }
+            });
+
+        };
         
         self.validateCredentials = (event) => {
             var loginValidationGroup = document.getElementById("loginValidationGroup");
@@ -28,12 +46,13 @@ function($, ko, routerUtil, cryptojs, config, accUtils){
                 password: cryptojs.SHA512(self.password()).toString(cryptojs.enc.Base64)
             };
             $.post(JSON.parse(config).serviceUrl + '/login', loginRequest, (data, textStatus, request) => {
+                window.localStorage.setItem("fvgf", request.getResponseHeader("X-Bixi"));
                 return data;
             }).done((data) => {
-                self.navLanding(data.pageDataArray);
+                self.setTopMenu();
                 accUtils.announce(data.messageDetail, 'assertive');
             }).fail((data) => {
-                if(data.responseJSON.messageDetail){
+                if(data.responseJSON && data.responseJSON.messageDetail){
                     accUtils.announce(data.responseJSON.messageDetail, 'error');
                 }else{
                     accUtils.announce("Something went wrong. Please try again later", 'error');
@@ -70,6 +89,8 @@ function($, ko, routerUtil, cryptojs, config, accUtils){
         
         self.connected = () => {
             routerUtil.showNavigationItems();
+            document.getElementsByClassName("oj-navigationlist-item-element oj-navigationlist-item oj-navigationlist-item-last-child")[0].classList.remove('oj-default');
+            document.getElementsByClassName("oj-navigationlist-item-element oj-navigationlist-item oj-navigationlist-item-last-child")[0].classList.add('oj-selected');
         }
         
         self.disconnected = () => {

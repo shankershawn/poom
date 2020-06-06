@@ -192,9 +192,7 @@ function($, ko, routerUtil, config, AsyncRegExpValidator, accUtils, cryptojs){
         }
         
         self.navLogin = () => {
-            routerUtil.configureRoute({'login': {label: 'Login', isDefault: true}});
-            routerUtil.setNavData([{name: 'Login', id: 'login', iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-person-icon-24'}]);
-            routerUtil.navigate('login');
+            routerUtil.navLogin();
         }
     }
     
