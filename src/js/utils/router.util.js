@@ -26,6 +26,10 @@ function(app, Router){
             self.setNavData([{name: 'Login', id: 'login', iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-person-icon-24'}]);
             self.navigate('login');
         }
+
+        self.toggleProfileMenuDisplay = (isShowProfileMenu) => {
+            app.isShowProfileMenu(isShowProfileMenu);
+        }
         
         function hideNavigationItems(){
             Array.from(document.getElementById('ui-id-2').children).forEach(li => li.style.visibility = "hidden");

@@ -51,9 +51,11 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
         });
       };
 
-      require(['./utils/router.util', './viewModels/login'], (routerUtil, login) => {
+      require(['./viewModels/login'], (login) => {
         login.setTopMenu();
       });
+
+      console.log(document.location.href);
 
       // Navigation setup
       self.navData = ko.observableArray([
@@ -122,12 +124,28 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
               case "out": 
                   window.localStorage.removeItem('fvgf');
                   var routerUtil = require('./utils/router.util');
-                  routerUtil.configureRoute({'login': {label: 'Login', isDefault: true}});
-                  routerUtil.setNavData([{name: 'Login', id: 'login', iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-person-icon-24'}]);
-                  routerUtil.navigate('login');
+                  routerUtil.navLogin();
+                  routerUtil.toggleProfileMenuDisplay(false);
                   break;
           }
       }
+
+      self.isShowProfileMenu = ko.observable(false);
+      
+      self.showProfileMenu = ko.pureComputed(() => {
+          require(['./utils/jwt.util'], (jwtUtil) => {
+            jwtUtil.verify()
+              .then(() => {
+                  self.isShowProfileMenu(true);
+              })
+              .catch(() => {
+                  self.isShowProfileMenu(false);
+              });
+          });
+          return self.isShowProfileMenu();
+      });
+
+
      }
 
      return new ControllerViewModel();

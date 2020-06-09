@@ -50,6 +50,7 @@ function($, ko, routerUtil, cryptojs, config, accUtils){
                 return data;
             }).done((data) => {
                 self.setTopMenu();
+                routerUtil.toggleProfileMenuDisplay(true);
                 accUtils.announce(data.messageDetail, 'assertive');
             }).fail((data) => {
                 if(data.responseJSON && data.responseJSON.messageDetail){
@@ -89,8 +90,11 @@ function($, ko, routerUtil, cryptojs, config, accUtils){
         
         self.connected = () => {
             routerUtil.showNavigationItems();
-            document.getElementsByClassName("oj-navigationlist-item-element oj-navigationlist-item oj-navigationlist-item-last-child")[0].classList.remove('oj-default');
-            document.getElementsByClassName("oj-navigationlist-item-element oj-navigationlist-item oj-navigationlist-item-last-child")[0].classList.add('oj-selected');
+            var loginMenuOption = document.getElementsByClassName("oj-navigationlist-item-element oj-navigationlist-item oj-navigationlist-item-last-child")[0];
+            if(loginMenuOption){
+                loginMenuOption.classList.remove('oj-default');
+                loginMenuOption.classList.add('oj-selected');
+            }
         }
         
         self.disconnected = () => {

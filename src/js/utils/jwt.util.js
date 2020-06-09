@@ -1,4 +1,4 @@
-define(['jquery'], function($) {
+define(['jquery', 'text!config/configuration.json'], function($, config) {
     function jwtUtil(){
         var self = this;
 
