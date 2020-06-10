@@ -124,8 +124,10 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
               case "out": 
                   window.localStorage.removeItem('fvgf');
                   var routerUtil = require('./utils/router.util');
+                  var login = require('./viewModels/login');
                   routerUtil.navLogin();
                   routerUtil.toggleProfileMenuDisplay(false);
+                  login.showLoadingImage(false);
                   break;
           }
       }

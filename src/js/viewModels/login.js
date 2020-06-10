@@ -101,6 +101,18 @@ function($, ko, routerUtil, cryptojs, config, accUtils){
             self.username("");
             self.password("");
         }
+
+        self.showLoadingImage = ko.observable(true);
+      
+        require(['utils/jwt.util'], (jwtUtil) => {
+            jwtUtil.verify()
+            .then(() => {
+                self.showLoadingImage(true);
+            })
+            .catch(() => {
+                self.showLoadingImage(false);
+            });
+        });
         
     }
     
