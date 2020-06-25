@@ -159,7 +159,7 @@ function($, ko, routerUtil, config, AsyncRegExpValidator, accUtils, cryptojs){
             };
             console.log(registrationRequest);
             
-            $.post(JSON.parse(config).serviceUrl + '/register', registrationRequest, (data) => {
+            $.post(JSON.parse(config).SERVICE_URL + '/register', registrationRequest, (data) => {
                 return data;
             }).done((data) => {
                 accUtils.announce(data[0].messageDetail, 'assertive');

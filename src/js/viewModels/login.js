@@ -18,7 +18,7 @@ function($, ko, routerUtil, cryptojs, config, accUtils){
 
         self.setTopMenu = () => {
             $.ajax({
-                url: JSON.parse(config).serviceUrl + '/topmenu',
+                url: JSON.parse(config).SERVICE_URL + '/topmenu',
                 method: "GET",
                 headers: {
                     "authorization": "Bearer " + window.localStorage.getItem("fvgf")

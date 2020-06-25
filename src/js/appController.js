@@ -1,7 +1,13 @@
 define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils', 'ojs/ojrouter', 'ojs/ojresponsiveutils', 'ojs/ojresponsiveknockoututils', 'ojs/ojarraydataprovider',
-        'ojs/ojoffcanvas', 'ojs/ojmodule-element', 'ojs/ojknockout'],
-  function(ko, moduleUtils, KnockoutTemplateUtils, Router, ResponsiveUtils, ResponsiveKnockoutUtils, ArrayDataProvider, OffcanvasUtils) {
+        'ojs/ojoffcanvas', 'text!config/configuration.json', 'ojs/ojmodule-element', 'ojs/ojknockout'],
+  function(ko, moduleUtils, KnockoutTemplateUtils, Router, ResponsiveUtils, ResponsiveKnockoutUtils, ArrayDataProvider, OffcanvasUtils, config) {
      function ControllerViewModel() {
+
+      var protocol = window.location.href.split("://")[0];
+      if(protocol == 'http' && JSON.parse(config).SECURE_ONLY){
+          window.open('https://' + window.location.href.split("://")[1], '_self');
+      }
+
       var self = this;
 
       this.KnockoutTemplateUtils = KnockoutTemplateUtils;
