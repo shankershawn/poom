@@ -45,7 +45,7 @@ function($, ko, routerUtil, cryptojs, config, accUtils){
                 username: self.username,
                 password: cryptojs.SHA512(self.password()).toString(cryptojs.enc.Base64)
             };
-            $.post(JSON.parse(config).serviceUrl + '/login', loginRequest, (data, textStatus, request) => {
+            $.post(JSON.parse(config).SERVICE_URL + '/login', loginRequest, (data, textStatus, request) => {
                 window.localStorage.setItem("fvgf", request.getResponseHeader("X-Bixi"));
                 return data;
             }).done((data) => {
