@@ -5,7 +5,7 @@ define(['jquery', 'text!config/configuration.json'], function($, config) {
         self.verify = () => {
             return new Promise((resolve, reject) => {
                 $.ajax({
-                    url: JSON.parse(config).serviceUrl + '/verify',
+                    url: JSON.parse(config).SERVICE_URL + '/verify',
                     method: 'GET',
                     beforeSend: (xhr) => {
                         xhr.setRequestHeader("Authorization", "Bearer " + window.localStorage.getItem("fvgf"))

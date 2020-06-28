@@ -4,7 +4,7 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
      function ControllerViewModel() {
 
       var protocol = window.location.href.split("://")[0];
-      if(protocol == 'http' && JSON.parse(config).SECURE_ONLY){
+      if(protocol == 'http' && JSON.parse(config).SECURE_ONLY == "true"){
           window.open('https://' + window.location.href.split("://")[1], '_self');
       }
 
