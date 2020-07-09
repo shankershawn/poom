@@ -58,7 +58,7 @@ function($, ko, routerUtil, config, AsyncRegExpValidator, accUtils, cryptojs){
                         return;
                     }
                     var data;
-                    await $.get(JSON.parse(config).serviceUrl + '/validate/phone/' + encodeURIComponent(value), (data1) => {
+                    await $.get(JSON.parse(config).SERVICE_URL + '/validate/phone/' + encodeURIComponent(value), (data1) => {
                         data = data1;
                     });
                     if(data && !data.isValid){
@@ -79,7 +79,7 @@ function($, ko, routerUtil, config, AsyncRegExpValidator, accUtils, cryptojs){
                         return;
                     }
                     var data;
-                    await $.get(JSON.parse(config).serviceUrl + '/validate/username/' + encodeURIComponent(value), (data1) => {
+                    await $.get(JSON.parse(config).SERVICE_URL + '/validate/username/' + encodeURIComponent(value), (data1) => {
                         data = data1;
                     });
                     if(data && !data.isValid){
@@ -132,7 +132,7 @@ function($, ko, routerUtil, config, AsyncRegExpValidator, accUtils, cryptojs){
                         return;
                     }
                     var data;
-                    await $.get(JSON.parse(config).serviceUrl + '/validate/email/' + encodeURIComponent(value), (data1) => {
+                    await $.get(JSON.parse(config).SERVICE_URL + '/validate/email/' + encodeURIComponent(value), (data1) => {
                         data = data1;
                     });
                     if(data && !data.isValid){
