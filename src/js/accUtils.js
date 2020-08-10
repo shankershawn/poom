@@ -32,7 +32,7 @@ define(['ojs/ojanimation'],
           case 'warning':
               document.getElementById('announce').style.backgroundColor = "gold"; break;
           case 'error':
-              document.getElementById('announce').style.backgroundColor = "magenta"; break;
+              document.getElementById('announce').style.backgroundColor = "red"; break;
           case 'off':
               return;
       }

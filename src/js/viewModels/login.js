@@ -21,7 +21,8 @@ function($, ko, routerUtil, cryptojs, config, accUtils){
                 url: JSON.parse(config).SERVICE_URL + '/topmenu',
                 method: "GET",
                 headers: {
-                    "authorization": "Bearer " + window.localStorage.getItem("fvgf")
+                    "authorization": "Bearer " + window.localStorage.getItem("fvgf"),
+                    "x-auth-type": window.localStorage.getItem("tfdv")
                 },
                 success: (data1) => {
                     self.navLanding(data1.pageDataArray);
@@ -47,6 +48,7 @@ function($, ko, routerUtil, cryptojs, config, accUtils){
             };
             $.post(JSON.parse(config).SERVICE_URL + '/login', loginRequest, (data, textStatus, request) => {
                 window.localStorage.setItem("fvgf", request.getResponseHeader("X-Bixi"));
+                window.localStorage.setItem("tfdv","n");
                 return data;
             }).done((data) => {
                 self.setTopMenu();
@@ -60,6 +62,28 @@ function($, ko, routerUtil, cryptojs, config, accUtils){
                 }
             });
         };
+
+        self.proceedGoogleSSO = (event) => {
+            window.open("https://accounts.google.com/o/oauth2/v2/auth?scope=profile%20https://www.googleapis.com/auth/userinfo.email%20https://www.googleapis.com/auth/user.phonenumbers.read&include_granted_scopes=true&response_type=token&state=state_parameter_passthrough_value&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2F&client_id=260296187637-6mt3l0sd7b864drma1jaiq4fvvu5fu9j.apps.googleusercontent.com", "_self");
+        };
+
+        self.logout = () => {
+            $.ajax({
+                url: JSON.parse(config).SERVICE_URL + '/logout',
+                method: "GET",
+                headers: {
+                    "authorization": "Bearer " + window.localStorage.getItem("fvgf"),
+                    "x-auth-type": window.localStorage.getItem("tfdv")
+                },
+                complete: () => {
+                    routerUtil.navLogin();
+                    routerUtil.toggleProfileMenuDisplay(false);
+                    self.showLoadingImage(false);
+                }
+            });
+        };
+
+        
         
         self.navRegister = () => {
             routerUtil.configureRoute({'register': {label: 'Register', isDefault: true}});
@@ -103,11 +127,12 @@ function($, ko, routerUtil, cryptojs, config, accUtils){
         }
 
         self.showLoadingImage = ko.observable(true);
-      
+        
         require(['utils/jwt.util'], (jwtUtil) => {
             jwtUtil.verify()
             .then(() => {
-                self.showLoadingImage(true);
+                //self.showLoadingImage(true);
+                self.setTopMenu();
             })
             .catch(() => {
                 self.showLoadingImage(false);

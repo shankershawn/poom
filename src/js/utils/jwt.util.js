@@ -7,13 +7,16 @@ define(['jquery', 'text!config/configuration.json'], function($, config) {
                 $.ajax({
                     url: JSON.parse(config).SERVICE_URL + '/verify',
                     method: 'GET',
-                    beforeSend: (xhr) => {
-                        xhr.setRequestHeader("Authorization", "Bearer " + window.localStorage.getItem("fvgf"))
+                    headers: {
+                        "authorization": "Bearer " + window.localStorage.getItem("fvgf"),
+                        "x-auth-type": window.localStorage.getItem("tfdv")
                     },
                     success: (data) => {
                         resolve(data);
                     },
                     error: (err) => {
+                        window.localStorage.removeItem('fvgf');
+                        window.localStorage.removeItem('tfdv');
                         reject(err);
                     }
                 });

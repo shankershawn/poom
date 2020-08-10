@@ -57,12 +57,6 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
         });
       };
 
-      require(['./viewModels/login'], (login) => {
-        login.setTopMenu();
-      });
-
-      console.log(document.location.href);
-
       // Navigation setup
       self.navData = ko.observableArray([
         {name: 'Login', id: 'login', iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-person-icon-24'}
@@ -125,20 +119,34 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
         new footerLink('Your Privacy Rights', 'yourPrivacyRights', 'http://www.oracle.com/us/legal/privacy/index.html')
       ]);
       
-      self.userMenuAction = function(event){
+      self.userMenuAction = async function(event){
           switch(event.detail.originalEvent.target.parentElement.id){
-              case "out": 
+              case "out":
+                  var token = window.localStorage.getItem('fvgf');
+                  var auth_type = window.localStorage.getItem('tfdv');
                   window.localStorage.removeItem('fvgf');
-                  var routerUtil = require('./utils/router.util');
-                  var login = require('./viewModels/login');
-                  routerUtil.navLogin();
-                  routerUtil.toggleProfileMenuDisplay(false);
-                  login.showLoadingImage(false);
+                  window.localStorage.removeItem('tfdv');
+                  var login = await require('./viewModels/login');
+                  window.localStorage.setItem('fvgf', token);
+                  window.localStorage.setItem('tfdv', auth_type);
+                  await login.logout();
+                  window.localStorage.removeItem('fvgf');
+                  window.localStorage.removeItem('tfdv');
                   break;
           }
       }
 
       self.isShowProfileMenu = ko.observable(false);
+
+      self.setGToken = () => {
+          var g_token = new URL(window.location.toString().replace('/#','/?')).searchParams.get("access_token");
+          if(!!g_token){
+              window.localStorage.setItem("fvgf", g_token);
+              window.localStorage.setItem("tfdv","g");
+          }
+      }
+      
+      self.setGToken();
       
       self.showProfileMenu = ko.pureComputed(() => {
           require(['./utils/jwt.util'], (jwtUtil) => {
