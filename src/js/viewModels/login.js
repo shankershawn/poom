@@ -64,7 +64,7 @@ function($, ko, routerUtil, cryptojs, config, accUtils){
         };
 
         self.proceedGoogleSSO = (event) => {
-            window.open("https://accounts.google.com/o/oauth2/v2/auth?scope=profile%20https://www.googleapis.com/auth/userinfo.email%20https://www.googleapis.com/auth/user.phonenumbers.read&include_granted_scopes=true&response_type=token&state=state_parameter_passthrough_value&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2F&client_id=260296187637-6mt3l0sd7b864drma1jaiq4fvvu5fu9j.apps.googleusercontent.com", "_self");
+            window.open(JSON.parse(config).GAPI_URL, "_self");
         };
 
         self.logout = () => {
