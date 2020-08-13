@@ -132,7 +132,6 @@ function($, ko, routerUtil, cryptojs, config, accUtils){
         require(['utils/jwt.util'], (jwtUtil) => {
             jwtUtil.verify()
             .then(() => {
-                //self.showLoadingImage(true);
                 self.setTopMenu();
             })
             .catch(() => {
