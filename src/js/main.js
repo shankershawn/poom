@@ -24,28 +24,31 @@
       baseUrl: 'js',
 
       // Path mappings for the logical module names
-      paths:
-      // injector:mainReleasePaths
-      {
-        'knockout': 'libs/knockout/knockout-3.5.0.debug',
-        'jquery': 'libs/jquery/jquery-3.4.1.min',
-        'jqueryui-amd': 'libs/jquery/jqueryui-amd-1.12.1.min',
-        'hammerjs': 'libs/hammer/hammer-2.0.8.min',
-        'ojdnd': 'libs/dnd-polyfill/dnd-polyfill-1.0.1.min',
-        'ojs': 'libs/oj/v8.0.0/min' + (_ojNeedsES5 ? '_es5' : ''),
-        'ojL10n': 'libs/oj/v8.0.0/ojL10n',
-        'ojtranslations': 'libs/oj/v8.0.0/resources',
-        'text': 'libs/require/text',
-        'signals': 'libs/js-signals/signals.min',
-        'customElements': 'libs/webcomponents/custom-elements.min',
-        'proj4': 'libs/proj4js/dist/proj4-src',
-        'css': 'libs/require-css/css.min',
-        'touchr': 'libs/touchr/touchr',
-        'corejs' : 'libs/corejs/shim',
-        'regenerator-runtime' : 'libs/regenerator-runtime/runtime',
-        'cryptojs' :  'libs/crypto-js/'
+      bundle:{
+        "main.min": [
+          "viewModels/login",
+          "utils/jwt.util",
+          "utils/router.util",
+          "ojs/ojbootstrap",
+          "knockout",
+          "appController",
+          "ojs/ojrouter",
+          "knockout",
+          "ojs/ojmodule-element-utils",
+          "ojs/ojknockouttemplateutils",
+          "ojs/ojrouter",
+          "ojs/ojresponsiveutils",
+          "ojs/ojresponsiveknockoututils",
+          "ojs/ojarraydataprovider",
+          "ojs/ojoffcanvas",
+          "text",
+          "ojs/ojmodule-element",
+          "ojs/ojknockout",
+          "ojs/ojnavigationlist",
+          "ojs/ojtoolbar",
+          "ojs/ojasyncvalidator-regexp"
+        ]
       }
-      // endinjector
     }
   );
 }());

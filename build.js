@@ -47,7 +47,8 @@
 		"ojs/ojmodule-element",
 		"ojs/ojknockout",
 		"ojs/ojnavigationlist",
-		"ojs/ojtoolbar"
+		"ojs/ojtoolbar",
+		"ojs/ojasyncvalidator-regexp"
 	],
 	"bundles": {
 		"main.min": []
