@@ -101,7 +101,7 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
 
       // Header
       // Application Name used in Branding Area
-      self.appName = ko.observable("Dwitipriya Portal");
+      self.appName = ko.observable("Poom Portal");
       // User Info used in Global Navigation area
       self.userLogin = ko.observable("shankarsan.ganai@oracle.com");
 

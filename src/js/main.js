@@ -22,7 +22,7 @@
   requirejs.config(
     {
       baseUrl: 'js',
-
+      waitSeconds: 30,
       // Path mappings for the logical module names
       bundle:{
         "main.min": [
