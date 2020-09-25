@@ -15,6 +15,6 @@
   },
   "private": true,
   "scripts": {
-    "start": "ojet serve --release --server-port=$PORT --livereload=false"
+    "start": "ojet serve --server-port=$PORT --livereload=false"
   }
 }
