@@ -6,8 +6,7 @@
     "@oracle/ojet-cli": "~8.0.0",
     "@oracle/oraclejet": "~8.0.0",
     "@oracle/oraclejet-tooling": "~8.0.0",
-    "crypto-js": "^4.0.0",
-    "uglify-es": "^3.3.9"
+    "crypto-js": "^4.0.0"
   },
   "devDependencies": {},
   "engines": {
