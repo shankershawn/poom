@@ -105,7 +105,7 @@ function($, ko, routerUtil, cryptojs, config, accUtils){
             });
             routerUtil.configureRoute(routeConfig);
             routerUtil.setNavData(navData);
-            history.pushState('','','/')
+            //history.pushState('','','/')
             routerUtil.navigate('dashboard');
         }
         

@@ -15,8 +15,8 @@ define(['accUtils', '../utils/router.util'],
        * after being disconnected.
        */
       self.connected = function() {
-        routerUtil.showNavigationItems();
         document.title = "Dashboard";
+        routerUtil.showNavigationItems();
         // Implement further logic if needed
       };
 
@@ -32,7 +32,7 @@ define(['accUtils', '../utils/router.util'],
        * That includes any possible animation between the old and the new View.
        */
       self.transitionCompleted = function() {
-          
+        
       };
     }
 

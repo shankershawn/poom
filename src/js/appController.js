@@ -45,15 +45,15 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
       // Router setup
       self.router = Router.rootInstance;
       Router.defaults['urlAdapter'] = new Router.urlParamAdapter();
+      //Router.defaults['urlAdapter'] = new Router.urlPathAdapter();
       self.router.configure({'login': {label: 'Login', isDefault: true}});
       self.loadModule = function () {
         self.moduleConfig = ko.pureComputed(function () {
-          console.log(self.router.stateId());
           var name = !self.router.moduleConfig.name() ? 'login' : self.router.moduleConfig.name();
           var viewPath = 'views/' + name + '.html';
           var modelPath = 'viewModels/' + name;
           return moduleUtils.createConfig({ viewPath: viewPath,
-            viewModelPath: modelPath, params: { parentRouter: self.router } });
+            viewModelPath: modelPath});
         });
       };
 
@@ -101,9 +101,9 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
 
       // Header
       // Application Name used in Branding Area
-      self.appName = ko.observable("Poom Portal");
+      self.appName = ko.observable("... because you care");
       // User Info used in Global Navigation area
-      self.userLogin = ko.observable("shankarsan.ganai@oracle.com");
+      //self.userLogin = ko.observable("shankarsan.ganai@oracle.com");
 
       // Footer
       function footerLink(name, id, linkTarget) {
